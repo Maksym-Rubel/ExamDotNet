@@ -11,6 +11,7 @@ namespace DB_Controller.Entities
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public int Listers { get; set; } = 0;
 
         public ICollection<Record> Records { get; set; }
     }

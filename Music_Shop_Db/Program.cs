@@ -47,7 +47,8 @@ internal class Program
             Console.WriteLine("3 - Delete records");
             Console.WriteLine("4 - Update records");
             Console.WriteLine("5 - Sell record");
-            Console.WriteLine("6 - Print records");
+            Console.WriteLine("6 - Search records");
+            Console.WriteLine("7 - Watch filter");
 
 
             Console.Write("Enter choice --> ");
@@ -68,6 +69,44 @@ internal class Program
                     break;
                 case 5:
                     VIews.SellRecord(context);
+                    break;
+                case 6:
+                    Console.WriteLine(" 1 - Name records");
+                    Console.WriteLine(" 2 - Artist records");
+                    Console.WriteLine(" 3 - Genre records");
+                    Console.Write(" Enter choice --> ");
+                    int choice2 = int.Parse(Console.ReadLine()!);
+                    if(choice2 == 1)
+                    {
+                        VIews.FindNameRecord(context);
+                    }
+                    else if (choice2 == 2)
+                    {
+                        VIews.FindArtistRecord(context);
+                    }
+                    else if (choice2 == 3)
+                    {
+                        VIews.FindGenreRecord(context);
+                    }
+                    break;
+                case 7:
+                    Console.WriteLine(" 1 - Most popular records");
+                    Console.WriteLine(" 2 - Most popular artist");
+                    Console.WriteLine(" 3 - Most popular genre");
+                    Console.Write(" Enter choice --> ");
+                    choice2 = int.Parse(Console.ReadLine()!);
+                    if (choice2 == 1)
+                    {
+                        VIews.FindNameRecord(context);
+                    }
+                    else if (choice2 == 2)
+                    {
+                        VIews.FindArtistRecord(context);
+                    }
+                    else if (choice2 == 3)
+                    {
+                        VIews.FindGenreRecord(context);
+                    }
                     break;
                 case 0:
                     return;

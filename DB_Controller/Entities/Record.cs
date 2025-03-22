@@ -18,5 +18,8 @@ namespace DB_Controller.Entities
         public int Year { get; set; }
         public float Price { get; set; }
         public float CostPrice { get; set; }
+
+        public int Listers { get; set; } = 0;
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using DB_Controller;
 using DB_Controller.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +13,20 @@ namespace Music_Shop_Db.View
 {
     internal class VIews
     {
+
         public static void PrintAlbum(Data_Conttroler context)
         {
 
             Console.WriteLine(new string('-', 50));
             Console.WriteLine("--------------------All records-------------------");
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"{"Id",-6}{"Name",-30}{"ArtistId",-10}{"PublisherName",-20}{"Year",-7}{"Price",-10}");
+            Console.WriteLine($"{"Id",-6}{"Name",-30}{"ArtistId",-10}{"PublisherName",-20}{"Year",-7}{"Price",-10}{"Listers",-10}{"Genre",-10}");
 
 
             foreach (var item in context.Records)
             {
-                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.ArtistId,-10}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}");
+                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.ArtistId,-10}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}{item.Listers,-10}{item.Genre,-10}");
+
             }
             Console.WriteLine(new string('-', 50));
             Console.WriteLine(new string('-', 50));
@@ -94,18 +98,7 @@ namespace Music_Shop_Db.View
         public static void DeleteRecord(Data_Conttroler context)
         {
 
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine("--------------------All records-------------------");
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"{"Id",-6}{"Name",-30}{"ArtistId",-10}{"PublisherName",-20}{"Year",-7}{"Price",-10}");
-
-
-            foreach (var item in context.Records)
-            {
-                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.ArtistId,-10}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}");
-            }
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine(new string('-', 50));
+            PrintAlbum(context);
             Console.Write("Enter Id for delete --> ");
             int id = int.Parse(Console.ReadLine()!);
             var record = context.Records.Find(id);
@@ -119,18 +112,7 @@ namespace Music_Shop_Db.View
         public static void UpdateRecord(Data_Conttroler context)
         {
 
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine("--------------------All records-------------------");
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"{"Id",-6}{"Name",-30}{"ArtistId",-10}{"PublisherName",-20}{"Year",-7}{"Price",-10}");
-
-
-            foreach (var item in context.Records)
-            {
-                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.ArtistId,-10}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}");
-            }
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine(new string('-', 50));
+            PrintAlbum(context);
             Console.Write("Enter Id for update --> ");
             int id = int.Parse(Console.ReadLine()!);
             var record = context.Records.Find(id);
@@ -169,6 +151,10 @@ namespace Music_Shop_Db.View
                 string yearInput = Console.ReadLine()!;
                 if (int.TryParse(yearInput, out int year))
                     record.Year = year;
+                Console.Write("Enter new listener (leave empty to keep current) --> ");
+                string listInput = Console.ReadLine()!;
+                if (int.TryParse(listInput, out int list))
+                    record.Listers = list;
 
                 context.SaveChanges();
             }
@@ -178,18 +164,7 @@ namespace Music_Shop_Db.View
         public static void SellRecord(Data_Conttroler context)
         {
 
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine("--------------------All records-------------------");
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"{"Id",-6}{"Name",-30}{"ArtistId",-10}{"PublisherName",-20}{"Year",-7}{"Price",-10}");
-
-
-            foreach (var item in context.Records)
-            {
-                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.ArtistId,-10}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}");
-            }
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine(new string('-', 50));
+            PrintAlbum(context);
             Console.Write("Enter Id for sell --> ");
             int id = int.Parse(Console.ReadLine()!);
             var record = context.Records.Find(id);
@@ -210,6 +185,53 @@ namespace Music_Shop_Db.View
                 context.Records.Remove(record);
                 context.SaveChanges();
             }
+
+
+        }
+        public static void FindNameRecord(Data_Conttroler context)
+        {
+
+            
+            Console.Write("Enter name --> ");
+            string name = Console.ReadLine()!;
+            var album = context.Records.Where(x => x.Name.Contains(name));
+            PrintAlbum(context);
+
+
+
+        }
+        public static void FindArtistRecord(Data_Conttroler context)
+        {
+
+            
+            Console.Write("Enter artist --> ");
+            string name = Console.ReadLine()!;
+            var album = context.Records.Include(x=> x.Artist).Where(x => x.Artist.Name.Contains(name));
+            PrintAlbum(context);
+
+
+
+        }
+        public static void FindGenreRecord(Data_Conttroler context)
+        {
+
+
+            Console.Write("Enter genre --> ");
+            string name = Console.ReadLine()!;
+            var album = context.Records.Where(x => x.Genre.Contains(name));
+            PrintAlbum(context);
+
+
+        }
+        public static void MostPopularRecord(Data_Conttroler context)
+        {
+
+
+            Console.Write("Enter genre --> ");
+            string name = Console.ReadLine()!;
+            var album = context.Records.Where(x => x.Genre.Contains(name));
+            PrintAlbum(context);
+
 
 
         }
