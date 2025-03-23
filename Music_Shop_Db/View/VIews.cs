@@ -13,19 +13,20 @@ namespace Music_Shop_Db.View
 {
     internal class VIews
     {
-
+        
         public static void PrintAlbum(Data_Conttroler context)
         {
 
             Console.WriteLine(new string('-', 50));
             Console.WriteLine("--------------------All records-------------------");
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"{"Id",-6}{"Name",-30}{"ArtistId",-10}{"PublisherName",-20}{"Year",-7}{"Price",-10}{"Listers",-10}{"Genre",-10}");
+            Console.WriteLine($"{"Id",-6}{"Name",-30}{"Artist",-20}{"PublisherName",-20}{"Year",-7}{"Price",-10}{"Listers",-10}{"Genre",-10}");
 
-
-            foreach (var item in context.Records)
+            var values = context.Records.Include(x => x.Artist);
+            foreach (var item in values)
             {
-                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.ArtistId,-10}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}{item.Listers,-10}{item.Genre,-10}");
+                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.Artist.Name,-20}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}{item.Listers,-10}{item.Genre,-10}");
+
 
             }
             Console.WriteLine(new string('-', 50));
@@ -33,6 +34,22 @@ namespace Music_Shop_Db.View
 
 
 
+        }
+        public static void PrintAlbum1(List<Record> values)
+        {
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine("--------------------All records-------------------");
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine($"{"Id",-6}{"Name",-30}{"Artist",-20}{"PublisherName",-20}{"Year",-7}{"Price",-10}{"Listers",-10}{"Genre",-10}");
+
+
+            foreach (var item in values)
+            {
+                Console.WriteLine($"{item.Id,-6}{item.Name,-30}{item.Artist.Name,-20}{item.PublisherName,-20}{item.Year,-7}{item.Price,-10}{item.Listers,-10}{item.Genre,-10}");
+
+            }
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine(new string('-', 50));
         }
         public static void AddRecord(Data_Conttroler context)
         {
@@ -227,11 +244,24 @@ namespace Music_Shop_Db.View
         {
 
 
-            Console.Write("Enter genre --> ");
-            string name = Console.ReadLine()!;
-            var album = context.Records.Where(x => x.Genre.Contains(name));
-            PrintAlbum(context);
 
+            List<Record> album = context.Records.OrderByDescending(x => x.Listers).ToList();
+            PrintAlbum1(album);
+
+
+
+        }
+        public static void MostPopularArtist(Data_Conttroler context)
+        {
+
+            List<Artist> album1 = context.Artists.Include(x => x.Records).OrderByDescending(x => x.Records.Average(x=> x.Listers)).ToList();
+            Console.WriteLine(new string('-', 50));
+            foreach (var item in album1)
+            {
+                double averageListers = item.Records.Any() ? item.Records.Average(x => x.Listers) : 0;
+                if(averageListers != 0)
+                    Console.WriteLine($"{item.Name,-30}{averageListers}");
+            }
 
 
         }

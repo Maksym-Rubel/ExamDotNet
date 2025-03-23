@@ -10,6 +10,8 @@ internal class Program
         Data_Conttroler context = new Data_Conttroler();
         //var artist = new Artist { Name = "Pink Floyd" };
         //var artist2 = new Artist { Name = "The Beatles" };
+
+
         //context.Artists.AddRange(artist, artist2);
         //context.SaveChanges();
         //var album1 = new Record
@@ -39,81 +41,189 @@ internal class Program
         //context.SaveChanges();
         //context.Accounts.Add(new Account { Login = "Maks", Password = "Maks1" });
         //context.SaveChanges();
+        //context.Artists.Add(new Artist { Name = "Nirvana" });
+        //context.Artists.Add(new Artist { Name = "Megadeth" });
+        //context.Artists.Add(new Artist { Name = "AC/DC" });
+        //context.Artists.Add(new Artist { Name = "Korn" });
+        //context.Artists.Add(new Artist { Name = "Foo Fighters" });
+        //context.SaveChanges();
 
+        //context.Records.Add(
+        //    new Record
+        //    {
+        //        Name = "Nevermind",
+        //        ArtistId = 3,
+        //        PublisherName = "DGC Records",
+        //        SongCount = 12,
+        //        Genre = "Grunge",
+        //        Year = 1991,
+        //        Price = 39.00f,
+        //        CostPrice = 22.50f
+        //    });
+        //context.Records.Add(
+        //    new Record
+        //    {
+        //        Name = "Rust in Peace",
+        //        ArtistId = 4,
+        //        PublisherName = "Capitol Records",
+        //        SongCount = 9,
+        //        Genre = "Thrash Metal",
+        //        Year = 1990,
+        //        Price = 36.00f,
+        //        CostPrice = 20.00f
+        //    });
+
+        //context.Records.Add(
+        //    new Record
+        //    {
+        //        Name = "Highway to Hell",
+        //        ArtistId = 5,
+        //        PublisherName = "Atlantic Records",
+        //        SongCount = 10,
+        //        Genre = "Hard Rock",
+        //        Year = 1979,
+        //        Price = 38.00f,
+        //        CostPrice = 21.00f
+        //    });
+
+        //context.Records.Add(
+        //    new Record
+        //    {
+        //        Name = "Follow the Leader",
+        //        ArtistId = 6,
+        //        PublisherName = "Immortal Records",
+        //        SongCount = 14,
+        //        Genre = "Nu Metal",
+        //        Year = 1998,
+        //        Price = 37.00f,
+        //        CostPrice = 22.00f
+        //    });
+
+
+        //context.Records.Add(
+        //    new Record
+        //    {
+        //        Name = "The Colour and the Shape",
+        //        ArtistId = 7,
+        //        PublisherName = "Roswell Records",
+        //        SongCount = 13,
+        //        Genre = "Alternative Rock",
+        //        Year = 1997,
+        //        Price = 35.50f,
+        //        CostPrice = 20.50f
+        //    });
+        //context.SaveChanges();
+        //context.Accounts.Add(new Account { Login = "Maks", Password = "Maks1" });
+        //context.SaveChanges();
+        bool Validation = false;
         while (true)
         {
-            Console.WriteLine("1 - Print records");
-            Console.WriteLine("2 - Add records");
-            Console.WriteLine("3 - Delete records");
-            Console.WriteLine("4 - Update records");
-            Console.WriteLine("5 - Sell record");
-            Console.WriteLine("6 - Search records");
-            Console.WriteLine("7 - Watch filter");
+            Console.WriteLine("1- Login/2- Register");
 
-
-            Console.Write("Enter choice --> ");
-            int choice = int.Parse(Console.ReadLine()!);
-            switch (choice)
+            int log2 = int.Parse(Console.ReadLine()!);
+            if (log2 == 1)
             {
-                case 1:
-                    VIews.PrintAlbum(context);
-                    break;
-                case 2:
-                    VIews.AddRecord(context);
-                    break;
-                case 3:
-                    VIews.DeleteRecord(context);
-                    break;
-                case 4:
-                    VIews.UpdateRecord(context);
-                    break;
-                case 5:
-                    VIews.SellRecord(context);
-                    break;
-                case 6:
-                    Console.WriteLine(" 1 - Name records");
-                    Console.WriteLine(" 2 - Artist records");
-                    Console.WriteLine(" 3 - Genre records");
-                    Console.Write(" Enter choice --> ");
-                    int choice2 = int.Parse(Console.ReadLine()!);
-                    if(choice2 == 1)
-                    {
-                        VIews.FindNameRecord(context);
-                    }
-                    else if (choice2 == 2)
-                    {
-                        VIews.FindArtistRecord(context);
-                    }
-                    else if (choice2 == 3)
-                    {
-                        VIews.FindGenreRecord(context);
-                    }
-                    break;
-                case 7:
-                    Console.WriteLine(" 1 - Most popular records");
-                    Console.WriteLine(" 2 - Most popular artist");
-                    Console.WriteLine(" 3 - Most popular genre");
-                    Console.Write(" Enter choice --> ");
-                    choice2 = int.Parse(Console.ReadLine()!);
-                    if (choice2 == 1)
-                    {
-                        VIews.FindNameRecord(context);
-                    }
-                    else if (choice2 == 2)
-                    {
-                        VIews.FindArtistRecord(context);
-                    }
-                    else if (choice2 == 3)
-                    {
-                        VIews.FindGenreRecord(context);
-                    }
-                    break;
-                case 0:
-                    return;
+                Console.WriteLine(new string('-', 50));
+                Console.Write("Enter login --> ");
+                string log = Console.ReadLine()!;
+                Console.Write("Enter password --> ");
+                string pass = Console.ReadLine()!;
+                var log1 = context.Accounts.FirstOrDefault(x => x.Login == log && x.Password == pass);
 
+                if (log1 != null)
+                {
+                    Validation = true;
+                    break;
+                }
+                Console.WriteLine("Invalid login or password. Try again.");
+            }
+            else if (log2 == 2)
+            {
+                Console.WriteLine(new string('-', 50));
+
+                Console.WriteLine("Enter login --> ");
+                string log = Console.ReadLine()!;
+                Console.WriteLine("Enter password --> ");
+                string pass = Console.ReadLine()!;
+                context.Accounts.Add(new Account { Login = log, Password = pass });
+                context.SaveChanges();
             }
         }
-        
-        //VIews.AddRecord(context);
+            if(Validation)
+            {
+            Console.WriteLine(new string('-', 50));
+
+            while (true)
+                {
+                    Console.WriteLine("1 - Print records");
+                    Console.WriteLine("2 - Add records");
+                    Console.WriteLine("3 - Delete records");
+                    Console.WriteLine("4 - Update records");
+                    Console.WriteLine("5 - Sell record");
+                    Console.WriteLine("6 - Search records");
+                    Console.WriteLine("7 - Watch filter");
+
+
+                    Console.Write("Enter choice --> ");
+                    int choice = int.Parse(Console.ReadLine()!);
+                    switch (choice)
+                    {
+                        case 1:
+                            VIews.PrintAlbum(context);
+                            break;
+                        case 2:
+                            VIews.AddRecord(context);
+                            break;
+                        case 3:
+                            VIews.DeleteRecord(context);
+                            break;
+                        case 4:
+                            VIews.UpdateRecord(context);
+                            break;
+                        case 5:
+                            VIews.SellRecord(context);
+                            break;
+                        case 6:
+                            Console.WriteLine(" 1 - Name records");
+                            Console.WriteLine(" 2 - Artist records");
+                            Console.WriteLine(" 3 - Genre records");
+                            Console.Write(" Enter choice --> ");
+                            int choice2 = int.Parse(Console.ReadLine()!);
+                            if (choice2 == 1)
+                            {
+                                VIews.FindNameRecord(context);
+                            }
+                            else if (choice2 == 2)
+                            {
+                                VIews.FindArtistRecord(context);
+                            }
+                            else if (choice2 == 3)
+                            {
+                                VIews.FindGenreRecord(context);
+                            }
+                            break;
+                        case 7:
+                            Console.WriteLine(" 1 - Most popular records");
+                            Console.WriteLine(" 2 - Most popular artist");
+                            Console.Write(" Enter choice --> ");
+                            choice2 = int.Parse(Console.ReadLine()!);
+                            if (choice2 == 1)
+                            {
+                                VIews.MostPopularRecord(context);
+                            }
+                            else if (choice2 == 2)
+                            {
+                                VIews.MostPopularArtist(context);
+                            }
+                            break;
+                        case 0:
+                            return;
+
+                    }
+                }
+            
+            }
+
+            
+        }
     }
-}
