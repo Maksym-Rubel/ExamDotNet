@@ -115,12 +115,40 @@ internal class Program
         //context.SaveChanges();
         //context.Accounts.Add(new Account { Login = "Maks", Password = "Maks1" });
         //context.SaveChanges();
+        //var client1 = new Clients
+        //{
+        //    Name = "John",
+        //    Surname = "Doe",
+        //    Email = "john.doe@example.com",
+        //    BuyCount = 5
+        //};
+
+        //var client2 = new Clients
+        //{
+        //    Name = "Jane",
+        //    Surname = "Smith",
+        //    Email = "jane.smith@example.com",
+        //    BuyCount = 3
+        //};
+
+        //var client3 = new Clients
+        //{
+        //    Name = "Mike",
+        //    Surname = "Johnson",
+        //    Email = "mike.johnson@example.com",
+        //    BuyCount = 10
+        //};
+
+        
+        //context.Clients.AddRange(client1, client2, client3);
+        //context.SaveChanges();
         bool Validation = false;
         while (true)
         {
             Console.WriteLine("1- Login/2- Register");
 
             int log2 = int.Parse(Console.ReadLine()!);
+            Console.Clear();
             if (log2 == 1)
             {
                 Console.WriteLine(new string('-', 50));
@@ -129,7 +157,7 @@ internal class Program
                 Console.Write("Enter password --> ");
                 string pass = Console.ReadLine()!;
                 var log1 = context.Accounts.FirstOrDefault(x => x.Login == log && x.Password == pass);
-
+                Console.WriteLine(new string('-', 50));
                 if (log1 != null)
                 {
                     Validation = true;
@@ -141,20 +169,23 @@ internal class Program
             {
                 Console.WriteLine(new string('-', 50));
 
-                Console.WriteLine("Enter login --> ");
+                Console.Write("Enter login --> ");
                 string log = Console.ReadLine()!;
-                Console.WriteLine("Enter password --> ");
+                Console.Write("Enter password --> ");
                 string pass = Console.ReadLine()!;
+                Console.Clear();
                 context.Accounts.Add(new Account { Login = log, Password = pass });
                 context.SaveChanges();
             }
         }
             if(Validation)
             {
-            Console.WriteLine(new string('-', 50));
 
+            Console.WriteLine(new string('-', 50));
+            Console.Clear();
             while (true)
                 {
+                    
                     Console.WriteLine("1 - Print records");
                     Console.WriteLine("2 - Add records");
                     Console.WriteLine("3 - Delete records");
@@ -162,6 +193,9 @@ internal class Program
                     Console.WriteLine("5 - Sell record");
                     Console.WriteLine("6 - Search records");
                     Console.WriteLine("7 - Watch filter");
+                    Console.WriteLine("8 - Watch clients");
+                    Console.WriteLine("8 - Print selles");
+
 
 
                     Console.Write("Enter choice --> ");
@@ -169,44 +203,58 @@ internal class Program
                     switch (choice)
                     {
                         case 1:
+                            Console.Clear();
                             VIews.PrintAlbum(context);
                             break;
                         case 2:
+                            Console.Clear();
                             VIews.AddRecord(context);
                             break;
                         case 3:
+                            Console.Clear();
                             VIews.DeleteRecord(context);
                             break;
                         case 4:
+                            Console.Clear();
                             VIews.UpdateRecord(context);
                             break;
                         case 5:
+                            Console.Clear();
                             VIews.SellRecord(context);
                             break;
                         case 6:
+                            Console.Clear();
+
                             Console.WriteLine(" 1 - Name records");
                             Console.WriteLine(" 2 - Artist records");
                             Console.WriteLine(" 3 - Genre records");
                             Console.Write(" Enter choice --> ");
                             int choice2 = int.Parse(Console.ReadLine()!);
+                            Console.Clear();
+
                             if (choice2 == 1)
                             {
-                                VIews.FindNameRecord(context);
+                           
+                            VIews.FindNameRecord(context);
                             }
                             else if (choice2 == 2)
                             {
+                                Console.Clear();
                                 VIews.FindArtistRecord(context);
                             }
                             else if (choice2 == 3)
                             {
+                                Console.Clear();
                                 VIews.FindGenreRecord(context);
                             }
                             break;
                         case 7:
+                            Console.Clear();
                             Console.WriteLine(" 1 - Most popular records");
                             Console.WriteLine(" 2 - Most popular artist");
                             Console.Write(" Enter choice --> ");
                             choice2 = int.Parse(Console.ReadLine()!);
+                            Console.Clear();
                             if (choice2 == 1)
                             {
                                 VIews.MostPopularRecord(context);
@@ -216,7 +264,15 @@ internal class Program
                                 VIews.MostPopularArtist(context);
                             }
                             break;
-                        case 0:
+                        case 8:
+                            Console.Clear();
+                            VIews.PrintClients(context);
+                            break;
+                        case 9:
+                            Console.Clear();
+                            VIews.PrintSells(context);
+                        break;
+                    case 0:
                             return;
 
                     }

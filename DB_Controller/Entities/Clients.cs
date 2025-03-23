@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace DB_Controller.Entities
 {
-    public class Artist
+    public class Clients
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Surname { get; set; }
 
-        public int Listers { get; set; } = 0;
-
-        public ICollection<Record> Records { get; set; }
+        public string Email { get; set; } = "NotEmail";
+        public int BuyCount { get; set; } = 0;
         public ICollection<Selles> Selles { get; set; }
-
 
     }
 }

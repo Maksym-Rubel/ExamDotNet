@@ -3,6 +3,7 @@ using DB_Controller;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB_Controller.Migrations
 {
     [DbContext(typeof(Data_Conttroler))]
-    partial class Data_ConttrolerModelSnapshot : ModelSnapshot
+    [Migration("20250323185527_AddClients")]
+    partial class AddClients
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,9 +114,6 @@ namespace DB_Controller.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BuyCount")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -249,7 +249,7 @@ namespace DB_Controller.Migrations
             modelBuilder.Entity("DB_Controller.Entities.Selles", b =>
                 {
                     b.HasOne("DB_Controller.Entities.Artist", "Artist")
-                        .WithMany("Selles")
+                        .WithMany()
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -268,8 +268,6 @@ namespace DB_Controller.Migrations
             modelBuilder.Entity("DB_Controller.Entities.Artist", b =>
                 {
                     b.Navigation("Records");
-
-                    b.Navigation("Selles");
                 });
 
             modelBuilder.Entity("DB_Controller.Entities.Clients", b =>

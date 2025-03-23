@@ -11,8 +11,8 @@ namespace DB_Controller.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int ArtistId { get; set; }
-        public int AccountId {  get; set; }
-        public Account Account { get; set; }
+        public int ClientsId {  get; set; }
+        public Clients Clients { get; set; }
         public Artist Artist { get; set; }
         public string PublisherName { get; set; }
         public int SongCounts { get; set; }

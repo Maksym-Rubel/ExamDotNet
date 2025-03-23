@@ -12,6 +12,5 @@ namespace DB_Controller.Entities
         public string Login { get; set; }
         public string Password { get; set; }
 
-        public ICollection<Selles> Selles { get; set; }
     }
 }

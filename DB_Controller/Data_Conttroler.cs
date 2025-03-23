@@ -26,12 +26,16 @@ namespace DB_Controller
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Selles>()
-                .HasOne(c => c.Account)
+                .HasOne(c => c.Clients)
                 .WithMany(w => w.Selles)
-                .HasForeignKey(c => c.AccountId);
+                .HasForeignKey(c => c.ClientsId);
             modelBuilder.Entity<Record>()
                 .HasOne(c => c.Artist)
                 .WithMany(w => w.Records)
+                .HasForeignKey(c => c.ArtistId);
+            modelBuilder.Entity<Selles>()
+                .HasOne(c => c.Artist)
+                .WithMany(w => w.Selles)
                 .HasForeignKey(c => c.ArtistId);
         }
 
@@ -41,6 +45,8 @@ namespace DB_Controller
         public DbSet<Record> Records { get; set; }
         public DbSet<Arhive> Arhives { get; set; }
         public DbSet<Selles> Selles { get; set; }
+        public DbSet<Clients> Clients { get; set; }
+
 
     }
 }
